@@ -864,8 +864,15 @@ notiert – sie hätte keinen Wächter, #1040):
   bindet Hardware-Evidenz und Freeze-Provenienz an genau diesen Build-Run.
   `release-publish.yml` veröffentlicht danach ausschließlich die fünf im
   Freigabemanifest gespeicherten SHA-256, Draft-first und ohne Neubau/Clobber
-  (#744/#747, siehe *Release-Freigabevertrag* unten). Der verbindliche Ablauf
-  steht nur im
+  (#744/#747, siehe *Release-Freigabevertrag* unten). Die vier Dispatches
+  (Kandidat, Abnahme, Freigabe, Publish) haben seit #1039 je einen
+  **Standardweg** über `scripts/release_dispatch.py` (`candidate`/
+  `acceptance`/`approve`/`publish`): Run-IDs und Artefaktnamen kommen aus der
+  GitHub-API, die Bindungswerte liegen in einer versionierten Zustandsdatei
+  außerhalb des Arbeitsbaums (`--state-file`), jeder `gh`-Aufruf wird vor der
+  Ausführung gedruckt; das Skript ändert weder Workflows noch Verträge oder
+  Gates, und die Handprozedur im Runbook bleibt die Referenz. Der verbindliche
+  Ablauf steht nur im
   [`Release-Runbook`](docs/RELEASE_PROCESS.md), die stabilen Kriterien nur in
   der [`Abnahme-Checkliste`](docs/RELEASE_ACCEPTANCE_CHECKLIST.md).
 - **Runner-Betrieb:** `runner-heartbeat.yml` (#921) — täglich 05:30 UTC und
